@@ -14,7 +14,8 @@ std::shared_ptr<ChassisController> drive =
         .withDimensions({AbstractMotor::gearset::blue}, {{2.75_in, 12_in}, imev5BlueTPR})
         .build();
 
-Motor hinge({HINGE_PORT});
+// Motor hinge({HINGE_PORT, okapi::AbstractMotor::setGearing()});
+// if you wanted to set the gearbox, do it in initlization via constructor
 Motor roller({ROLLER_PORT});
 
 Controller controller;
@@ -33,6 +34,7 @@ void initialize()
 {
    hinge.setEncoderUnits(AbstractMotor::encoderUnits::degrees);
    hinge.tarePosition();
+   roller.setEncoderUnits(AbstractMotor::encoderUnits::degrees);
    roller.tarePosition();
 }
 
