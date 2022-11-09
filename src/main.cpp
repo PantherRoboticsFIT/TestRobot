@@ -52,9 +52,10 @@ void competition_initialize() {
 }
 
 void autonomous() {
-	//moves the robot 24 inches with the initial heading from when the inertial sensor was last reset.
-	PID(24,0);
-
+	//moves the robot 24 inches
+	PID(24);
+	//
+	
 }
 
 ControllerButton armUpButton(ControllerDigital::R2);
