@@ -22,6 +22,8 @@ inline double TurnrightMotorSpeed;
 
 inline double maxspeed;
 
+inline int facing = 0;
+
 inline void Turn(int heading, int speed){
 
     int counter = 1;
@@ -43,6 +45,7 @@ inline void Turn(int heading, int speed){
               dH += 360;
           }
       }
+      
 
     }
 
