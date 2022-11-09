@@ -20,14 +20,15 @@ inline float Turnintegral;
 inline double TurnleftMotorSpeed;
 inline double TurnrightMotorSpeed;
 
-/*
-inline void Turn(int heading, int maxspeed){
+inline double maxspeed;
+
+inline void Turn(int heading, int speed){
 
     int counter = 1;
     
       float dH = heading - (360 - tracker.get_position());
 
-    while ((abs(dH) >= 1) || (abs(maxSpeed) >= 5 && counter != 0)) {
+    while ((abs(dH) >= 1) || (abs(maxspeed) >= 5 && counter != 0)) {
 
         counter = 1;
 
@@ -45,4 +46,4 @@ inline void Turn(int heading, int maxspeed){
 
     }
 
-}*/
+}
