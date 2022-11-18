@@ -1,30 +1,30 @@
 #include "main.h"
 #include "define.h"
 
-inline float TurnkP = 1;
-inline float TurnkI = 0;
-inline float TurnkD = 0;
-inline float TurnkT = 0;
+float TurnkP = 1;
+float TurnkI = 0;
+float TurnkD = 0;
+float TurnkT = 0;
 
-inline float Turnerror;
-inline float TurnprevError;
+float Turnerror;
+float TurnprevError;
 
-inline float TurndesiredHeading;
-inline float TurnheadingError;
-inline float TurnprevHeading;
+float TurndesiredHeading;
+float TurnheadingError;
+float TurnprevHeading;
 
-inline float Turnproportion;
-inline float Turnderivative;
-inline float Turnintegral;
+float Turnproportion;
+float Turnderivative;
+float Turnintegral;
 
-inline double TurnleftMotorSpeed;
-inline double TurnrightMotorSpeed;
+double TurnleftMotorSpeed;
+double TurnrightMotorSpeed;
 
-inline double maxspeed;
+double maxspeed;
 
-inline int facing = 0;
+int facing = 0;
 
-inline void Turn(int heading, int speed){
+void Turn(int heading, int speed){
 
     int counter = 1;
     
