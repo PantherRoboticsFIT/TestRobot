@@ -19,9 +19,9 @@ std::shared_ptr<ChassisController> drive =
         // 36 to 60 gear ratio
         .withDimensions({AbstractMotor::gearset::blue}, {{2.75_in, 12_in}, imev5BlueTPR})
         .withGains(
-            {0.001, 0, 0.0001}, // Distance controller gains
-            {0.001, 0, 0.0001}, // Turn controller gains
-            {0.001, 0, 0.0001}  // Angle controller gains (helps drive straight)
+            {1.0, 0, 0.25}, // Distance controller gains
+            {1.0, 0, 0.25}, // Turn controller gains
+            {1.0, 0, 0.25}  // Angle controller gains (helps drive straight)
             )
         .withDerivativeFilters(
             std::make_unique<AverageFilter<3>>(), // Distance controller filter
@@ -85,7 +85,7 @@ void competition_initialize()
 
 void autonomous()
 {
-   drive->moveDistance(RQuantity<std::ratio<0>, std::ratio<1>, std::ratio<0>, std::ratio<0>>());
+   drive->moveDistance(RQuantity<std::ratio<0>, std::ratio<1>, std::ratio<0>, std::ratio<0>>(5.0));
    // // timer
    // TimeUtil time = TimeUtilFactory::createDefault();
 
