@@ -1,13 +1,20 @@
 #include "main.h"
 #include "okapi/api/device/motor/abstractMotor.hpp"
-#define LEFT_WHEELS_PORT -11
-#define RIGHT_WHEELS_PORT -12
+#define LEFT_WHEELS_PORT_ONE -20
+#define LEFT_WHEELS_PORT_TWO -19
+#define RIGHT_WHEELS_PORT_ONE 11
+#define RIGHT_WHEELS_PORT_TWO 12
 #define HINGE_PORT 1
 #define ROLLER_PORT 15
 
+Motor iLeftOne(LEFT_WHEELS_PORT_ONE);
+Motor iLeftTwo(LEFT_WHEELS_PORT_TWO);
+Motor iRightOne(RIGHT_WHEELS_PORT_ONE);
+Motor IRightTwo(RIGHT_WHEELS_PORT_TWO);
+
 std::shared_ptr<ChassisController> drive =
     ChassisControllerBuilder()
-        .withMotors({-20, -19}, {11, 12})
+        .withMotors({iLeftOne, iLeftTwo}, {iRightOne, IRightTwo})
         // Green gearset, 4 in wheel diam, 11.5 im wheel track
         // 36 to 60 gear ratio
         .withDimensions({AbstractMotor::gearset::blue}, {{2.75_in, 12_in}, imev5BlueTPR})
@@ -36,15 +43,16 @@ std::shared_ptr<ChassisController> drive =
                 "/ser/sout",                                 // Output to the PROS terminal
                 Logger::LogLevel::debug                      // Most verbose log level
                 ))
-         //  .withSensors(
-         //      ADIEncoder{LEFT_WHEELS_PORT},      // Left encoder in ADI ports A & B
-         //      ADIEncoder{RIGHT_WHEELS_PORT, true} // Right encoder in ADI ports C & D (reversed)
-         //      )
+        .withSensors(
+            iLeftOne.getEncoder(), iRightOne.getEncoder()
+            //  {iLeftOne.getEncoder(), iLeftTwo.getEncoder(), false},
+            //  {iRightOne.getEncoder(), IRightTwo.getEncoder(), true}
+            )
         .build();
 
 Motor hinge(HINGE_PORT);
 // if you wanted to set the gearbox, do it in initlization via constructor
-Motor roller({ROLLER_PORT});
+Motor roller(ROLLER_PORT);
 
 Controller controller;
 
@@ -77,6 +85,7 @@ void competition_initialize()
 
 void autonomous()
 {
+   drive->moveDistance(RQuantity<std::ratio<0>, std::ratio<1>, std::ratio<0>, std::ratio<0>>());
    // // timer
    // TimeUtil time = TimeUtilFactory::createDefault();
 
