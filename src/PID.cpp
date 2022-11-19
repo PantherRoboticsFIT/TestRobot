@@ -1,31 +1,31 @@
 #include "main.h"
 #include "define.h"
 
-inline float kP = 1;
-inline float kI = 0;
-inline float kD = 0;
-inline float kT = 0;
+float kP = 1;
+float kD = 0;
+float kI = 0;
+float kT = 0;
 
-inline float error;
-inline float prevError;
+float error;
+float prevError;
 
-inline float desiredHeading;
-inline float headingError;
-inline float prevHeading;
+float desiredHeading;
+float headingError;
+float prevHeading;
 
-inline float proportion;
-inline float derivative;
-inline float integral;
+float proportion;
+float derivative;
+float integral;
 
-inline  float headingPropotion;
-inline float headingDerivative;
+float headingPropotion;
+float headingDerivative;
 
-inline float leftMotorSpeed;
-inline float rightMotorSpeed;
-inline float leftTurnSpeed;
-inline float rightTurnSpeed;
+float leftMotorSpeed;
+float rightMotorSpeed;
+float leftTurnSpeed;
+float rightTurnSpeed;
 
-inline void PID (int desired){
+void PID (int desired){
     //error = distance the robot needs to move in inches.
     float error = desired - ((2.75 * M_PI * tracker.get_position()) / 360);
 
@@ -41,18 +41,16 @@ inline void PID (int desired){
 
         error = desired - ((2.75 * M_PI * tracker.get_position()) / 360);
         
-        proportion = error * kP;
+        proportion = error;
 
         derivative = prevError - error;
  
         headingError = desiredHeading - inertial.get_rotation();
   
         headingPropotion = headingError * kT;
-
-        headingDerivative = prevHeading - headingError;
  
-        leftTurnSpeed = -(headingPropotion + headingDerivative);
-        rightTurnSpeed = headingPropotion + headingDerivative;
+        leftTurnSpeed = -headingPropotion;
+        rightTurnSpeed = headingPropotion;
 
         leftMotorSpeed = (proportion * kP) + (derivative * kD) + leftTurnSpeed;
         rightMotorSpeed = (proportion * kP) + (derivative * kD) + rightTurnSpeed;
